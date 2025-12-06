@@ -54,6 +54,12 @@ pio run --target erase
 Before first upload, user MUST edit `src/main.cpp`:
 - Lines 9-10: WiFi credentials (`ssid` and `password`)
 
+Static IP configuration:
+- Automatically uses `.215` as last octet (configurable at line 13: `STATIC_IP_LAST_OCTET`)
+- Connects via DHCP first to auto-detect network (192.168.x.x, 10.0.x.x, etc.)
+- Reconnects with static IP using detected network + custom last octet
+- Always results in predictable IP address ending
+
 Timezone configuration:
 - Set via web interface after upload (supports major timezones with automatic DST)
 - Stored in NVS preferences and persists across reboots

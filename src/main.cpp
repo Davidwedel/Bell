@@ -9,6 +9,9 @@
 const char* ssid = "YOUR_WIFI_SSID";
 const char* password = "YOUR_WIFI_PASSWORD";
 
+// Static IP - last octet only (will auto-detect network)
+const int STATIC_IP_LAST_OCTET = 215;
+
 // GPIO pins
 const int BELL_PIN = 5;        // GPIO pin to control bell relay
 const int BUTTON_PIN = 4;      // GPIO pin for physical button
@@ -59,14 +62,45 @@ void setup() {
   digitalWrite(BELL_PIN, LOW);
   pinMode(BUTTON_PIN, INPUT_PULLUP);
 
-  // Connect to WiFi
-  Serial.print("Connecting to WiFi");
+  // Connect to WiFi with DHCP first to discover network
+  Serial.print("Connecting to WiFi (DHCP)");
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
-  Serial.println("\nWiFi connected!");
+  Serial.println("\nWiFi connected via DHCP!");
+
+  // Get network configuration from DHCP
+  IPAddress dhcpIP = WiFi.localIP();
+  IPAddress gateway = WiFi.gatewayIP();
+  IPAddress subnet = WiFi.subnetMask();
+  IPAddress dns = WiFi.dnsIP();
+
+  Serial.print("DHCP IP: ");
+  Serial.println(dhcpIP);
+
+  // Build static IP using same network but with custom last octet
+  IPAddress staticIP(dhcpIP[0], dhcpIP[1], dhcpIP[2], STATIC_IP_LAST_OCTET);
+
+  // Disconnect and reconnect with static IP
+  WiFi.disconnect();
+  delay(100);
+
+  Serial.print("Reconnecting with static IP: ");
+  Serial.println(staticIP);
+
+  if (!WiFi.config(staticIP, gateway, subnet, dns)) {
+    Serial.println("Static IP configuration failed!");
+  }
+
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("\nWiFi connected with static IP!");
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
 

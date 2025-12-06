@@ -55,6 +55,12 @@ pio device monitor
 ### 4. Find IP Address
 After uploading, open serial monitor to see the ESP32's IP address.
 
+**Note:** The ESP32 will automatically use a static IP ending in `.215` on your local network. For example:
+- If your network is `192.168.1.x`, the ESP32 will be at `192.168.1.215`
+- If your network is `10.0.0.x`, the ESP32 will be at `10.0.0.215`
+
+To change the last octet, edit `STATIC_IP_LAST_OCTET` in `src/main.cpp`.
+
 ## Usage
 
 ### Web Interface
@@ -91,12 +97,7 @@ const int BELL_DURATION = 1000; // Bell ring duration in ms
 ```
 
 ### Time Zone
-The code uses UTC by default. To adjust for your timezone, modify the NTPClient initialization:
-```cpp
-// For EST (UTC-5): -5 * 3600 = -18000
-// For PST (UTC-8): -8 * 3600 = -28800
-NTPClient timeClient(ntpUDP, "pool.ntp.org", -18000, 60000);
-```
+Configure timezone through the web interface after uploading. The system supports automatic Daylight Saving Time transitions. No code changes needed.
 
 ## Troubleshooting
 
@@ -110,8 +111,9 @@ NTPClient timeClient(ntpUDP, "pool.ntp.org", -18000, 60000);
 - Test with multimeter if relay is activating
 
 **Time incorrect:**
-- Check timezone offset in NTPClient initialization
+- Configure timezone via web interface
 - Verify internet connection for NTP sync
+- Check that correct timezone is selected (supports automatic DST)
 
 **Schedules not persisting:**
 - ESP32 preferences stored in NVS flash
