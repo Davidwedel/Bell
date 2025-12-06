@@ -15,6 +15,7 @@ const int STATIC_IP_LAST_OCTET = 215;
 // GPIO pins
 const int BELL_PIN = 5;        // GPIO pin to control bell relay
 const int BUTTON_PIN = 4;      // GPIO pin for physical button
+const int LED_PIN = 2;         // Built-in LED on most ESP32 boards
 
 // Bell control
 const int BELL_DURATION = 1000; // Bell ring duration in ms
@@ -60,6 +61,8 @@ void setup() {
   // Setup GPIO
   pinMode(BELL_PIN, OUTPUT);
   digitalWrite(BELL_PIN, LOW);
+  pinMode(LED_PIN, OUTPUT);
+  digitalWrite(LED_PIN, LOW);
   pinMode(BUTTON_PIN, INPUT_PULLUP);
 
   // Connect to WiFi with DHCP first to discover network
@@ -507,6 +510,7 @@ void loop() {
   // Handle bell timing
   if (bellActive && (millis() - bellStartTime >= BELL_DURATION)) {
     digitalWrite(BELL_PIN, LOW);
+    digitalWrite(LED_PIN, LOW);
     bellActive = false;
     Serial.println("Bell stopped");
   }
@@ -517,6 +521,7 @@ void loop() {
 void ringBell() {
   if (!bellActive) {
     digitalWrite(BELL_PIN, HIGH);
+    digitalWrite(LED_PIN, HIGH);
     bellActive = true;
     bellStartTime = millis();
     Serial.println("Bell ringing!");

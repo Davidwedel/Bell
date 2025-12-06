@@ -8,6 +8,7 @@ Automated bell controller with web interface for scheduling ring times.
 - 🌐 Web interface for configuration
 - 📅 Multiple schedules support (up to 20)
 - 🔘 Physical button for manual ring
+- 💡 Built-in LED visual indicator when bell rings
 - 🌍 WiFi connectivity with NTP time sync
 - 💾 Persistent schedule storage
 
@@ -22,6 +23,7 @@ Automated bell controller with web interface for scheduling ring times.
 ### Pin Connections
 - **GPIO 5**: Bell relay control (change in code if needed)
 - **GPIO 4**: Physical button (with internal pullup)
+- **GPIO 2**: Built-in LED (visual indicator, no wiring needed)
 
 ### Wiring
 ```

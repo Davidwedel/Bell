@@ -48,6 +48,7 @@ pio run --target erase
 **Hardware I/O:**
 - GPIO 5 (`BELL_PIN`): Relay control output
 - GPIO 4 (`BUTTON_PIN`): Physical button input (internal pullup enabled)
+- GPIO 2 (`LED_PIN`): Built-in LED visual indicator (blinks when bell rings)
 
 ## Configuration Requirements
 
@@ -66,8 +67,8 @@ Timezone configuration:
 - Changing timezone triggers automatic ESP32 restart to apply changes
 
 Optional hardware configurations in `src/main.cpp`:
-- Lines 13-14: GPIO pin assignments (`BELL_PIN`, `BUTTON_PIN`)
-- Line 17: Bell duration in milliseconds (`BELL_DURATION`)
+- Lines 16-18: GPIO pin assignments (`BELL_PIN`, `BUTTON_PIN`, `LED_PIN`)
+- Line 21: Bell duration in milliseconds (`BELL_DURATION`)
 
 ## Dependencies
 
