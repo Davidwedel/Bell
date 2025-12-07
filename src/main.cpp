@@ -18,7 +18,7 @@ const int BUTTON_PIN = 4;      // GPIO pin for physical button
 const int LED_PIN = 2;         // Built-in LED on most ESP32 boards
 
 // Bell control
-const int BELL_DURATION = 1000; // Bell ring duration in ms
+const int BELL_DURATION = 3000; // Bell ring duration in ms
 unsigned long bellStartTime = 0;
 bool bellActive = false;
 
