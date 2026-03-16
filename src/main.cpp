@@ -13,9 +13,9 @@ const char* password = "YOUR_WIFI_PASSWORD";
 const int STATIC_IP_LAST_OCTET = 215;
 
 // GPIO pins
-const int BELL_PIN = 5;        // GPIO pin to control bell relay
+const int BELL_PIN = 47;       // GPIO pin to control bell relay
 const int BUTTON_PIN = 4;      // GPIO pin for physical button
-const int LED_PIN = 2;         // Built-in LED on most ESP32 boards
+const int LED_PIN = 48;        // Built-in LED on ESP32-S3 DevKitC-1
 
 // Bell control
 const int BELL_DURATION = 3000; // Bell ring duration in ms
