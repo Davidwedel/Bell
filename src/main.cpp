@@ -19,7 +19,7 @@ const int BUTTON_PIN = 4;      // GPIO pin for physical button
 const int LED_PIN = 48;        // Built-in LED on ESP32-S3 DevKitC-1
 
 // Bell control
-const int BELL_DURATION = 3000; // Bell ring duration in ms
+const int BELL_DURATION = 300; // Bell ring duration in ms
 unsigned long bellStartTime = 0;
 bool bellActive = false;
 
@@ -230,9 +230,9 @@ void setup() {
 </head>
 <body>
   <div class="container">
-    <h1>🔔 Bell Controller</h1>
+    <h1>Bell Controller</h1>
     <div class="time-display" id="currentTime">Loading time...</div>
-    <button class="ring-btn" onclick="ringNow()">🔔 Ring Now!</button>
+    <button class="ring-btn" onclick="ringNow()">Ring Now</button>
   </div>
 
   <div class="container">
@@ -325,8 +325,7 @@ void setup() {
     }
 
     function ringNow() {
-      fetch('/ring', { method: 'POST' })
-        .then(() => alert('Bell ringing!'));
+      fetch('/ring', { method: 'POST' });
     }
 
     function addSchedule() {
